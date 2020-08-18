@@ -1,0 +1,12 @@
+image: attensee/s3_website
+
+pipelines:
+  default:
+    - step:
+        script:
+          - mkdir build
+          - cp -R js build/
+          - cp -R lib build/
+          - cp -R css build/
+          - cp -R *.html build/
+          - s3_website push

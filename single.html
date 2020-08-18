@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="lib/jquery-1.7.1.min.js"></script>
+    <script src="https://api.trello.com/1/client.js?key="></script>
+    <script src="lib/vue.js"></script>
+
+    <title>Todo-ello: Todo app powered by Trello</title>
+
+    <link href="css/app.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="focus.html">Focus Mode</a></li>
+            <li class="active"><a href="single.html">Single View</a></li>
+            <li><a href="configure.html">Configure</a></li>
+        </ul>
+    </nav>
+    <div class="hidden" id="no_local">
+        No login performed, pls ensure that you allow popups
+    </div>
+    <div id="todos">
+        <div class="row">
+            <div>
+                <div class="checkbox" v-for="(card, index) in allCards">
+                    <input class='thebox' v-on:change="closeCard" :id="card.id" :value="card.id" type="checkbox" />
+                    <label class='strikethrough'>{{card.name}}</label>
+                    <label class='rank'>{{index + 1}}</label>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h1>Recently Completed</h1>
+        </div>
+
+        <div class="row">
+            <div>
+                <div class="checkbox completed" v-for="(card, index) in allDone">
+                    <input class='thebox' v-on:change="closeCard" :id="card.id" :value="card.id" type="checkbox"
+                        checked />
+                    <label class='strikethrough'>{{card.name}}</label>
+                    <label class='rank'>{{index + 1}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/app.js" async></script>
+    <script type="text/javascript" src="js/analytics.js" async></script>
+</body>
+
+</html>

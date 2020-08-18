@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="lib/jquery-1.7.1.min.js"></script>
+    <script src="https://api.trello.com/1/client.js?key="></script>
+    <script src="lib/vue.js"></script>
+
+    <title>Configure settings for Todo-ello</title>
+
+    <link href="css/app.css" rel="stylesheet">
+    <script>
+        function allowDrop( ev ) {
+            ev.preventDefault();
+        }
+
+        function drag( ev ) {
+            ev.dataTransfer.setData( "text", ev.target.id );
+        }
+
+        function drop( ev ) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData( "text" );
+            ev.target.appendChild( document.getElementById( data ) );
+        }
+    </script>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="focus.html">Focus Mode</a></li>
+            <li><a href="single.html">Single View</a></li>
+            <li class="active"><a href="configure.html">Configure</a></li>
+        </ul>
+    </nav>
+    <div class="hidden" id="no_local">
+        No login performed, pls ensure that you allow popups
+    </div>
+    <div id="configure" class="container">
+        <h1>Todo-ello configuration</h1>
+        <div id="selected-board" class="hidden" v-model="selectedBoard">
+            <div id="current">
+                <h3>Selected Board:</h3> {{selectedBoard.name}}
+            </div>
+            <div id="change"><a href="#">Change Board</a></div>
+        </div>
+        <div id="form" class="selectzone hidden">
+            <form v-on:submit="doSubmit" id="target">
+                <div id="zone1" class="dropzone unfilled" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="zone2" class="dropzone unfilled" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div id="zone3" class="dropzone unfilled" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <button type="submit" class="button">Save</button>
+            </form>
+        </div>
+        <div id="boards">
+            <div class="column" v-for="board in boards">
+                <div class="config" :id="board.id" v-on:click="searchForLists">
+                    {{board.name}}
+                </div>
+            </div>
+        </div>
+        <div class="column" id="lists" class="hidden" v-for="list in lists">
+            <div class="config" :id="list.id" draggable=true ondragstart="drag(event)">
+                {{list.name}}
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="js/configure.js" async></script>
+    <script type="text/javascript" src="js/analytics.js" async></script>
+</body>
+
+</html>

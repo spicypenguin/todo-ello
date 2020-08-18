@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="lib/jquery-1.7.1.min.js"></script>
+    <script src="https://api.trello.com/1/client.js?key="></script>
+    <script src="lib/vue.js"></script>
+
+    <title>Todo-ello: Todo app powered by Trello</title>
+
+    <link href="css/app.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="focus.html">Focus Mode</a></li>
+            <li><a href="single.html">Single View</a></li>
+            <li><a href="configure.html">Configure</a></li>
+        </ul>
+    </nav>
+    <div class="hidden" id="no_local">
+        No login performed, pls ensure that you allow popups
+    </div>
+    <div id="todos">
+        <div class="row">
+            <div class="column">
+                <h2 v-model="listOne">{{listOne.name}}</h2>
+                <div>
+                    <form @submit.prevent="doHighSubmit">
+                        <input autocomplete="off" placeholder="Add a new todo" class="input" name="high-add"
+                            v-model="highAdd">
+                    </form>
+                    <div class="checkbox" v-for="(card, index) in highCards">
+                        <input class='thebox' v-on:change="closeCard" :id="card.id" :value="card.id" type="checkbox" />
+                        <label class='strikethrough'>{{card.name}}</label>
+                        <label class='rank'>{{index + 1}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <h2 v-model="listTwo">{{listTwo.name}}</h2>
+                <div>
+                    <form @submit.prevent="doLowSubmit">
+                        <input autocomplete="off" placeholder="Add a new todo" class="input" name="low-add"
+                            v-model="lowAdd">
+                    </form>
+                    <div class="checkbox" v-for="(card, index) in lowCards">
+                        <input class='thebox' v-on:change="closeCard" :id="card.id" :value="card.id" type="checkbox" />
+                        <label class='strikethrough'>{{card.name}}</label>
+                        <label class='rank'>{{index + 1}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <h2 v-model="listThree">{{listThree.name}}</h2>
+                <div>
+                    <form @submit.prevent="doExtraSubmit">
+                        <input autocomplete="off" placeholder="Add a new todo" class="input" name="ec-add"
+                            v-model="extraAdd">
+                    </form>
+                    <div class="checkbox" v-for="(card, index) in extraCards">
+                        <input class='thebox' v-on:change="closeCard" :id="card.id" :value="card.id" type="checkbox" />
+                        <label class='strikethrough'>{{card.name}}</label>
+                        <label class='rank'>{{index + 1}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h1>Recently Completed</h1>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <div>
+                    <div class="checkbox completed" v-for="(card, index) in doneHigh">
+                        <input class='thebox' v-on:change="closeCard" :id="card.id" :value="card.id" type="checkbox"
+                            checked />
+                        <label class='strikethrough'>{{card.name}}</label>
+                        <label class='rank'>{{index + 1}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div>
+                    <div class="checkbox completed" v-for="(card, index) in doneLow">
+                        <input class='thebox' v-on:change="closeCard" :id="card.id" :value="card.id" type="checkbox"
+                            checked />
+                        <label class='strikethrough'>{{card.name}}</label>
+                        <label class='rank'>{{index + 1}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div>
+                    <div class="checkbox completed" v-for="(card, index) in doneExtra">
+                        <input class='thebox' v-on:change="closeCard" :id="card.id" :value="card.id" type="checkbox"
+                            checked />
+                        <label class='strikethrough'>{{card.name}}</label>
+                        <label class='rank'>{{index + 1}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/global.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/analytics.js" async></script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="lib/jquery-1.7.1.min.js"></script>
+    <script src="https://api.trello.com/1/client.js?key="></script>
+    <script src="lib/vue.js"></script>
+
+    <title>Todo-ello: Todo app powered by Trello</title>
+
+    <link href="css/app.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="todos">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li class="active"><a href="focus.html">Focus Mode</a></li>
+                <li><a href="single.html">Single View</a></li>
+                <li><a href="configure.html">Configure</a></li>
+            </ul>
+        </nav>
+        <div class="hidden" id="no_local">
+            No login performed, pls ensure that you allow popups
+        </div>
+        <div class="row pickcards">
+            <h2>Pick 5 cards to focus your attention.</h2>
+            <div class="column">
+                <h2>High</h2>
+                <div>
+                    <div class="checkbox" v-on:click="pickCard" :id="card.id" :value="card.name"
+                        v-for="(card, index) in highCards">
+                        <label>{{card.name}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <h2>Medium</h2>
+                <div>
+                    <div class="checkbox" v-on:click="pickCard" :id="card.id" :value="card.name"
+                        v-for="(card, index) in lowCards">
+                        <label>{{card.name}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <h2>Low</h2>
+                <div>
+                    <div class="checkbox" v-on:click="pickCard" :id="card.id" :value="card.name"
+                        v-for="(card, index) in extraCards">
+                        <label>{{card.name}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row hidden focuscards">
+            <div class="column">
+                <h2 v-on:click="resetPicks">Focus</h2>
+                <div>
+                    <div class="checkbox" v-on:click="closeCard" :id="card.id" :value="card.id"
+                        v-for="(card, index) in focusCards">
+                        <label>{{card.name}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/focus.js"></script>
+    <script type="text/javascript" src="js/analytics.js"></script>
+</body>
+
+</html>
